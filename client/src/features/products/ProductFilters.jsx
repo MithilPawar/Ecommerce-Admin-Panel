@@ -1,4 +1,3 @@
-// src/components/Products/ProductFilters.jsx
 function ProductFilters({ filters, onChange }) {
   return (
     <div className="bg-white p-4 rounded shadow mb-4 flex flex-wrap gap-4">

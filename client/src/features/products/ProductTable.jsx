@@ -1,5 +1,6 @@
 import { FaEdit, FaTrash, FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import React from "react";
 
 function ProductTable({ products, onEdit, onDelete }) {
   return (
@@ -7,12 +8,24 @@ function ProductTable({ products, onEdit, onDelete }) {
       <table className="min-w-full text-sm border-collapse">
         <thead className="sticky top-0 z-10 bg-white/95 backdrop-blur rounded-t-xl border-b">
           <tr>
-            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">Image</th>
-            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">Name</th>
-            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">Price</th>
-            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">Stock</th>
-            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">Category</th>
-            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider text-center">Actions</th>
+            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">
+              Image
+            </th>
+            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">
+              Name
+            </th>
+            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">
+              Price
+            </th>
+            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">
+              Stock
+            </th>
+            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider">
+              Category
+            </th>
+            <th className="p-3 font-semibold text-gray-500 uppercase text-xs tracking-wider text-center">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +39,9 @@ function ProductTable({ products, onEdit, onDelete }) {
           {products.map((product, idx) => (
             <tr
               key={product._id}
-              className={`transition ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-indigo-50 group`}
+              className={`transition ${
+                idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+              } hover:bg-indigo-50 group`}
             >
               <td className="p-3">
                 {product.images?.[0]?.url ? (
@@ -42,7 +57,10 @@ function ProductTable({ products, onEdit, onDelete }) {
                 )}
               </td>
               <td className="p-3 max-w-[140px]">
-                <span className="block font-medium truncate" title={product.name}>
+                <span
+                  className="block font-medium truncate"
+                  title={product.name}
+                >
                   {product.name}
                 </span>
               </td>
@@ -51,8 +69,13 @@ function ProductTable({ products, onEdit, onDelete }) {
               </td>
               <td className="p-3">{product.stock}</td>
               <td className="p-3 max-w-[120px]">
-                <span className="block truncate text-gray-700" title={product.category?.name}>
-                  {product.category?.name || <span className="text-gray-300">N/A</span>}
+                <span
+                  className="block truncate text-gray-700"
+                  title={product.category?.name}
+                >
+                  {product.category?.name || (
+                    <span className="text-gray-300">N/A</span>
+                  )}
                 </span>
               </td>
               <td className="p-3 text-center">
@@ -103,4 +126,12 @@ function ProductTable({ products, onEdit, onDelete }) {
   );
 }
 
-export default ProductTable;
+export default React.memo(ProductTable);
+
+/*
+React.memo is Higer Order Component (HOC) that memoizes a functional component. Meaning
+that react will skip the re-rendering the component if its props havn't changed.
+It optimizes the performance by preventing unneccessary rerenders, especially for UI
+component that renders often and take time (like product, cards, pr table)
+
+*/
